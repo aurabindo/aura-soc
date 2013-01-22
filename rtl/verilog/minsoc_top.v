@@ -29,7 +29,7 @@ module minsoc_top (
 `endif
 
 `ifdef TEST_LOCAL
-	, uart_chip_select, spi_chip_select, clock_out, ram_chip_select
+	, uart_chip_select, spi_chip_select, ram_chip_select, led_out
 `endif
 );
 
@@ -55,17 +55,47 @@ output [1:0] spi_flash_ss;
 //these ouput lines are used to take them out of the SoC. They are routed to on board LED to see if its working
 `ifdef TEST_LOCAL
    output    uart_chip_select;
-   output    flash_chip_select;
-   output    clock_out;
+   output    spi_chip_select;
+//   output    clock_out;
    output    ram_chip_select;
-
-   assign uart_chip_select = wb_us_sel_i;
+   output reg [4:0] led_out;
+   
+   assign uart_chip_select = wb_us_cyc_i;
  
-   assign spi_chip_select = wb_sp_sel_i;
+   assign spi_chip_select = wb_sp_cyc_i;
    
-   assign clock_out = wb_clk;
+//   assign clock_out = wb_clk;
    
-   assign ram_chip_select = wb_ss_sel_i;
+   assign ram_chip_select = wb_ss_cyc_i;
+
+   reg [23:0] counter = 24'b0;
+   
+   
+   
+   
+   
+   
+   always @(posedge wb_clk)
+     begin
+        if(reset)
+	  begin
+	     counter <= 0;
+	     //led <= 8'b1;
+	 //     seven_seg <= 8'b1;
+	  end
+	
+	else
+	  begin
+	     counter <= counter +1;
+	  //   seven_seg <= seven_seg + 1;
+	     
+	  end
+	led_out <= counter[23:16];
+	
+     end
+   
+
+	
 `endif //  `ifdef TEST_LOCAL
    
    

@@ -94,7 +94,7 @@
 // Start-up circuit (only necessary later to load firmware automatically from SPI memory)
 //
 `define START_UP
-
+`define TEST_LOCAL //for testing if stuff works without having a debug cable
 //
 // Connected modules
 //
