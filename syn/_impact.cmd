@@ -2,7 +2,7 @@ setMode -bs
 setMode -bs
 setMode -bs
 setMode -bs
-setCable -target "digilent_plugin"
+setCable -port auto
 Identify -inferir 
 identifyMPM 
 assignFile -p 1 -file "/home/jay/openrisc/minsoc/syn/minsoc.bit"
