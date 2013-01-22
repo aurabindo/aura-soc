@@ -1,0 +1,11 @@
+# PROMGEN: Xilinx Prom Generator O.61xd
+# Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+SOFTWARE_VERSION O.61xd
+DATE             1/18/2013 - 14: 1
+SOURCE          uart.mcs
+DEVICE          16384K
+DATA_WIDTH      1
+FILL_DATA       0xFF
+SIGNATURE       0xFEE4857D
+START_ADDRESS   0x00000000 END_ADDRESS 0x00002594 DIRECTION_UP   "uart.bin" DATAFILE

@@ -1,0 +1,12 @@
+set -tmpdir ./xst
+run
+-vlgincdir { "/home/jay/openrisc/minsoc/prj/../backend" "/home/jay/openrisc/minsoc/prj/../bench/verilog" "/home/jay/openrisc/minsoc/prj/../bench/verilog/vpi" "/home/jay/openrisc/minsoc/prj/../bench/verilog/sim_lib" "/home/jay/openrisc/minsoc/prj/../rtl/verilog" }
+-ifn /home/jay/openrisc/minsoc/prj/../prj/xilinx/minsoc_bench.prj
+-ifmt Verilog
+-ofn minsoc_bench
+-ofmt NGC
+-p DEVICE_PART
+-top minsoc_bench
+-opt_mode Speed
+-opt_level 1
+-iobuf no

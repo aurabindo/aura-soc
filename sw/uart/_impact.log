@@ -1,0 +1,274 @@
+iMPACT Version: 13.2
+
+iMPACT log file Started on Sat Jan 19 13:11:35 2013
+
+Welcome to iMPACT
+iMPACT Version: 13.2
+// *** BATCH CMD : setMode -bs
+GUI --- Auto connect to cable...
+// *** BATCH CMD : setCable -port auto
+INFO:iMPACT - Digilent Plugin: Plugin Version: 2.1.15
+INFO:iMPACT - Digilent Plugin: found 1 device(s).
+INFO:iMPACT - Digilent Plugin: opening device: "Nexys3", SN:210182439856
+INFO:iMPACT - Digilent Plugin: User Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Product Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Serial Number: 210182439856
+INFO:iMPACT - Digilent Plugin: Product ID: 00D0010D
+INFO:iMPACT - Digilent Plugin: Firmware Version: 0306
+INFO:iMPACT - Digilent Plugin: JTAG Port Number: 0
+INFO:iMPACT - Digilent Plugin: JTAG Clock Frequency: 1600000 Hz
+Attempting to identify devices in the boundary-scan chain configuration...
+INFO:iMPACT - Current time: 1/19/13 1:11 PM
+// *** BATCH CMD : Identify -inferir 
+PROGRESS_START - Starting Operation.
+Identifying chain contents...'0': : Manufacturer's ID = Xilinx xc6slx16, Version : 3
+INFO:iMPACT:1777 - 
+   Reading /opt/xilinx/13.2/ISE_DS/ISE/spartan6/data/xc6slx16.bsd...
+INFO:iMPACT:501 - '1': Added Device xc6slx16 successfully.
+----------------------------------------------------------------------
+done.
+PROGRESS_END - End Operation.
+Elapsed time =      0 sec.
+// *** BATCH CMD : identifyMPM 
+Selected part: N25Q128
+// *** BATCH CMD : attachflash -position 1 -spi "N25Q128"
+Unprotect sectors: FALSE
+// *** BATCH CMD : assignfiletoattachedflash -position 1 -file"/home/jay/openrisc/minsoc/sw/uart/uart.mcs"
+// *** BATCH CMD : assignFile -p 1 -file"/home/jay/openrisc/minsoc/syn/minsoc.bit"
+'1': Loading file '/home/jay/openrisc/minsoc/syn/minsoc.bit' ...
+done.
+INFO:iMPACT:2257 - Startup Clock has been changed to 'JtagClk' in the bitstream   stored in memory,
+   but the original bitstream file remains unchanged.
+UserID read from the bitstream file = 0xFFFFFFFF.
+Data width read from the bitstream file = 1.
+INFO:iMPACT:501 - '1': Added Device xc6slx16 successfully.
+----------------------------------------------------------------------
+Selected part: N25Q128
+// *** BATCH CMD : attachflash -position 1 -spi "N25Q128"
+Unprotect sectors: FALSE
+// *** BATCH CMD : assignfiletoattachedflash -position 1 -file"/home/jay/openrisc/minsoc/sw/uart/uart.mcs"
+INFO:iMPACT - Current time: 1/19/13 1:12 PM
+// *** BATCH CMD : Program -p 1 -dataWidth 1 
+Maximum TCK operating frequency for this device chain: 0.
+Validating chain...
+Boundary-scan chain validated successfully.
+'1': Programming device...
+PROGRESS_START - Starting Operation.
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+[0] CRC ERROR                                                              :        0
+[1] IDCODE ERROR                                                           :        0
+[2] DCM LOCK STATUS                                                        :        1
+[3] GTS_CFG_B STATUS                                                       :        1
+[4] GWE STATUS                                                             :        1
+[5] GHIGH STATUS                                                           :        1
+[6] DECRYPTION ERROR                                                       :        0
+[7] DECRYPTOR ENABLE                                                       :        0
+[8] HSWAPEN PIN                                                            :        1
+[9] MODE PIN M[0]                                                          :        1
+[10] MODE PIN M[1]                                                         :        1
+[11] RESERVED                                                              :        0
+[12] INIT_B PIN                                                            :        1
+[13] DONE PIN                                                              :        1
+[14] SUSPEND STATUS                                                        :        0
+[15] FALLBACK STATUS                                                       :        0
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:579 - '1': Completed downloading bit file to device.
+INFO:iMPACT:188 - '1': Programming completed successfully.
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '1': Checking done pin....done.
+'1': Programmed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      3 sec.
+INFO:iMPACT - Current time: 1/19/13 1:13 PM
+// *** BATCH CMD : Program -p 1 -dataWidth 1 -spionly -e -v 
+Maximum TCK operating frequency for this device chain: 0.
+Validating chain...
+Boundary-scan chain validated successfully.
+'1': SPI access core not detected. SPI access core will be downloaded to thedevice to enable operations.
+INFO:iMPACT - Downloading core file   /opt/xilinx/13.2/ISE_DS/ISE/spartan6/data/xc6slx16_spi.cor.
+PROGRESS_START - Starting Operation.
+'1': Downloading core...
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:2492 - '1': Completed downloading core to device.
+'1': IDCODE is '20da18' (in hex).
+'1': ID Check failed.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+INFO:iMPACT - SPI Device not found.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+'1': Programming device...
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+[0] CRC ERROR                                                              :        0
+[1] IDCODE ERROR                                                           :        0
+[2] DCM LOCK STATUS                                                        :        1
+[3] GTS_CFG_B STATUS                                                       :        1
+[4] GWE STATUS                                                             :        1
+[5] GHIGH STATUS                                                           :        1
+[6] DECRYPTION ERROR                                                       :        0
+[7] DECRYPTOR ENABLE                                                       :        0
+[8] HSWAPEN PIN                                                            :        1
+[9] MODE PIN M[0]                                                          :        1
+[10] MODE PIN M[1]                                                         :        1
+[11] RESERVED                                                              :        0
+[12] INIT_B PIN                                                            :        1
+[13] DONE PIN                                                              :        1
+[14] SUSPEND STATUS                                                        :        0
+[15] FALLBACK STATUS                                                       :        0
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:579 - '1': Completed downloading bit file to device.
+INFO:iMPACT - '1': Programming not completed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      6 sec.
+INFO:iMPACT - Current time: 1/19/13 1:13 PM
+// *** BATCH CMD : Program -p 1 -spionly 
+Maximum TCK operating frequency for this device chain: 0.
+Validating chain...
+Boundary-scan chain validated successfully.
+PROGRESS_START - Starting Operation.
+'1': SPI access core not detected. SPI access core will be downloaded to thedevice to enable operations.
+INFO:iMPACT - Downloading core file   /opt/xilinx/13.2/ISE_DS/ISE/spartan6/data/xc6slx16_spi.cor.
+'1': Downloading core...
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:2492 - '1': Completed downloading core to device.
+'1': IDCODE is '20da18' (in hex).
+'1': ID Check failed.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+INFO:iMPACT - SPI Device not found.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+'1': Programming device...
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+[0] CRC ERROR                                                              :        0
+[1] IDCODE ERROR                                                           :        0
+[2] DCM LOCK STATUS                                                        :        1
+[3] GTS_CFG_B STATUS                                                       :        1
+[4] GWE STATUS                                                             :        1
+[5] GHIGH STATUS                                                           :        1
+[6] DECRYPTION ERROR                                                       :        0
+[7] DECRYPTOR ENABLE                                                       :        0
+[8] HSWAPEN PIN                                                            :        1
+[9] MODE PIN M[0]                                                          :        1
+[10] MODE PIN M[1]                                                         :        1
+[11] RESERVED                                                              :        0
+[12] INIT_B PIN                                                            :        1
+[13] DONE PIN                                                              :        1
+[14] SUSPEND STATUS                                                        :        0
+[15] FALLBACK STATUS                                                       :        0
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:579 - '1': Completed downloading bit file to device.
+INFO:iMPACT - '1': Programming not completed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      5 sec.
+INFO:iMPACT - Current time: 1/19/13 1:18 PM
+// *** BATCH CMD : Program -p 1 -spionly -e 
+Maximum TCK operating frequency for this device chain: 0.
+Validating chain...
+Boundary-scan chain validated successfully.
+'1': SPI access core not detected. SPI access core will be downloaded to thedevice to enable operations.
+INFO:iMPACT - Downloading core file   /opt/xilinx/13.2/ISE_DS/ISE/spartan6/data/xc6slx16_spi.cor.
+'1': Downloading core...
+PROGRESS_START - Starting Operation.
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:2492 - '1': Completed downloading core to device.
+'1': IDCODE is '20da18' (in hex).
+'1': ID Check failed.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+INFO:iMPACT - SPI Device not found.
+INFO:iMPACT:2488 - The operation did not complete successfully.
+'1': Programming device...
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+'1': Reading status register contents...
+[0] CRC ERROR                                                              :        0
+[1] IDCODE ERROR                                                           :        0
+[2] DCM LOCK STATUS                                                        :        1
+[3] GTS_CFG_B STATUS                                                       :        1
+[4] GWE STATUS                                                             :        1
+[5] GHIGH STATUS                                                           :        1
+[6] DECRYPTION ERROR                                                       :        0
+[7] DECRYPTOR ENABLE                                                       :        0
+[8] HSWAPEN PIN                                                            :        1
+[9] MODE PIN M[0]                                                          :        1
+[10] MODE PIN M[1]                                                         :        1
+[11] RESERVED                                                              :        0
+[12] INIT_B PIN                                                            :        1
+[13] DONE PIN                                                              :        1
+[14] SUSPEND STATUS                                                        :        0
+[15] FALLBACK STATUS                                                       :        0
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1100 1110 1100 
+INFO:iMPACT:579 - '1': Completed downloading bit file to device.
+INFO:iMPACT - '1': Programming not completed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      6 sec.
+Enumerating cables. Please wait.
+PROGRESS_START - Starting Operation.
+Connecting to cable (Usb Port - USB21).
+Checking cable driver.
+ Using libusb.
+Please run `source ./setup_pcusb` from the/opt/xilinx/13.2/ISE_DS/ISE//bin/lin64 directory with root privilege to updatethe firmware. Disconnect and then reconnect the cable from the USB port tocomplete the driver update.
+PROGRESS_END - End Operation.
+Elapsed time =      0 sec.
+INFO:iMPACT - Digilent Plugin: Plugin Version: 2.1.15
+INFO:iMPACT - Digilent Plugin: found 1 device(s).
+INFO:iMPACT - Digilent Plugin: opening device: "Nexys3", SN:210182439856
+INFO:iMPACT - Digilent Plugin: User Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Product Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Serial Number: 210182439856
+INFO:iMPACT - Digilent Plugin: Product ID: 00D0010D
+INFO:iMPACT - Digilent Plugin: Firmware Version: 0306
+INFO:iMPACT - Digilent Plugin: JTAG Port Number: 0
+INFO:iMPACT - Digilent Plugin: JTAG Clock Frequency: 1600000 Hz
+// *** BATCH CMD : setCable -target "digilent_plugin"
+INFO:iMPACT - Digilent Plugin: Plugin Version: 2.1.15
+INFO:iMPACT - Digilent Plugin: found 1 device(s).
+INFO:iMPACT - Digilent Plugin: opening device: "Nexys3", SN:210182439856
+INFO:iMPACT - Digilent Plugin: User Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Product Name: Nexys3
+INFO:iMPACT - Digilent Plugin: Serial Number: 210182439856
+INFO:iMPACT - Digilent Plugin: Product ID: 00D0010D
+INFO:iMPACT - Digilent Plugin: Firmware Version: 0306
+INFO:iMPACT - Digilent Plugin: JTAG Port Number: 0
+INFO:iMPACT - Digilent Plugin: JTAG Clock Frequency: 1600000 Hz
+INFO:iMPACT - User_EnvOsname: 'Fedora'
+INFO:iMPACT - User_EnvOsrelease: 'Fedora release 18 (Spherical Cow)'
+// *** BATCH CMD : setMode -bs
+INFO:iMPACT - Launching WebTalk, please refer to the webtalk log at   /home/jay/openrisc/minsoc/syn/webtalk.log for details.
+INFO:iMPACT - Running wbtc successfully.
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : deleteDevice -position 1
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : setMode -ss
+// *** BATCH CMD : setMode -sm
+// *** BATCH CMD : setMode -hw140
+// *** BATCH CMD : setMode -spi
+// *** BATCH CMD : setMode -acecf
+// *** BATCH CMD : setMode -acempm
+// *** BATCH CMD : setMode -pff

@@ -1,0 +1,12 @@
+set -tmpdir ./xst
+run
+-vlgincdir { "/home/jay/openrisc/minsoc/prj/../rtl/verilog/or1200/rtl/verilog" }
+-ifn /home/jay/openrisc/minsoc/prj/../prj/xilinx/or1200_top.prj
+-ifmt Verilog
+-ofn or1200_top
+-ofmt NGC
+-p xc6slx16-3csg324
+-top or1200_top
+-opt_mode Speed
+-opt_level 1
+-iobuf no

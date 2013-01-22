@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/ocsvn/openrisc/!svn/ver/15/openrisc/tags/or1200/rel1/lint/bin
+END
+run_lint
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/ocsvn/openrisc/!svn/ver/15/openrisc/tags/or1200/rel1/lint/bin/run_lint
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/ocsvn/openrisc/!svn/ver/15/openrisc/tags/or1200/rel1/lint/bin/README
+END

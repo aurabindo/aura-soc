@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup
+END
+spi_top.v
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup/spi_top.v
+END
+spi_clgen.v
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup/spi_clgen.v
+END
+spi_defines.v
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup/spi_defines.v
+END
+spi_shift.v
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup/spi_shift.v
+END
+OR1K_startup_generic.v
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/ocsvn/minsoc/!svn/ver/151/minsoc/tags/release-1.0/rtl/verilog/minsoc_startup/OR1K_startup_generic.v
+END

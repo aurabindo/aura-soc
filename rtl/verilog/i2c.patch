@@ -1,0 +1,193 @@
+--- /home/raul/or1k/minsoc/rtl/verilog/minsoc_top.v	2011-09-07 11:43:53.000000000 +0200
++++ minsoc_top.v	2011-10-26 09:59:01.000000000 +0200
+@@ -27,6 +27,12 @@
+ 	eth_rx_dv, eth_rx_er, eth_rxd, eth_fds_mdint,
+ 	eth_mdc, eth_mdio
+ `endif
++
++    //I2C ports
++    , i2c_scl, i2c_sda
++`ifdef SIMULATION
++    , i2c_scl_i, i2c_sda_i
++`endif
+ );
+ 
+ //
+@@ -75,6 +81,16 @@
+ `endif
+ 
+ //
++// I2C
++//
++inout i2c_scl;
++inout i2c_sda;
++`ifdef SIMULATION
++input i2c_scl_i;
++input i2c_sda_i;
++`endif
++
++//
+ // JTAG
+ //
+ `ifdef GENERIC_TAP
+@@ -265,6 +280,33 @@
+ wire			uart_srx;
+ 
+ //
++// I2C core external i/f wires
++//
++wire i2c_scl, i2c_scl_o, i2c_scl_oe;
++wire i2c_sda, i2c_sda_o, i2c_sda_oe;
++
++//
++// I2C core slave i/f wires
++//
++wire	[31:0]		wb_is_dat_i;
++wire 	[31:0]		wb_is_dat_o;
++wire	[31:0]		wb_is_adr_i;
++wire	[3:0]		wb_is_sel_i;
++wire			wb_is_we_i;
++wire			wb_is_cyc_i;
++wire			wb_is_stb_i;
++wire			wb_is_ack_o;
++wire			wb_is_err_o;
++
++//
++// I2C core extra wires
++//
++wire 	[7:0]		wb_i2c_dat_i;
++wire 	[7:0]		wb_i2c_dat_o;
++wire    [31:0]       wb_i2c_adr_i;
++wire            i2c_irq; 
++
++//
+ // Reset debounce
+ //
+ reg			rst_r;
+@@ -308,14 +350,13 @@
+ assign wb_us_err_o = 1'b0;
+ assign wb_fs_err_o = 1'b0;
+ assign wb_sp_err_o = 1'b0;
++assign wb_is_err_o = 1'b0;
+ 
+ //
+ // Unused interrupts
+@@ -325,6 +366,17 @@
+ assign eth_trste = `ETH_RESET;
+ `endif
+ 
++//
++// I2C tri-state
++//
++`ifdef SIMULATION
++assign i2c_scl = i2c_scl_oe ? 1'b1 : i2c_scl_o;
++assign i2c_sda = i2c_sda_oe ? 1'b1 : i2c_sda_o;
++`else
++assign i2c_scl = i2c_scl_oe ? 1'bz : i2c_scl_o;
++assign i2c_sda = i2c_sda_oe ? 1'bz : i2c_sda_o;
++`endif
++
+ 
+ //
+ // RISC Instruction address for Flash
+@@ -775,10 +823,65 @@
+ assign wb_em_dat_o = 32'h0000_0000;
+ assign wb_em_cyc_o = 1'b0;
+ assign wb_em_stb_o = 1'b0;
+-
+ assign pic_ints[`APP_INT_ETH] = 1'b0;
+ `endif
+ 
++
++//
++// Instantiation of I2C
++//
++i2c_master_top i2c_top(
++	.i2c_active(i2c_active), 
++	
++    .arst_i( rstn ), 
++
++    .wb_inta_o( i2c_irq ),
++
++`ifdef SIMULATION
++	.scl_pad_i( i2c_scl_i ), 
++`else
++	.scl_pad_i( i2c_scl ), 
++`endif
++    .scl_pad_o( i2c_scl_o ), 
++    .scl_padoen_o( i2c_scl_oe ), 
++
++`ifdef SIMULATION
++	.sda_pad_i( i2c_sda_i ), 
++`else
++	.sda_pad_i( i2c_sda ), 
++`endif
++    .sda_pad_o( i2c_sda_o ), 
++    .sda_padoen_o( i2c_sda_oe ),
++
++    //WISHBONE COMMON
++    .wb_clk_i( wb_clk ), 
++    .wb_rst_i( wb_rst ), 
++
++    //WISHBONE slave
++    .wb_adr_i( wb_i2c_adr_i[2:0] ), 
++    .wb_dat_i( wb_i2c_dat_i[7:0] ), 
++    .wb_dat_o( wb_i2c_dat_o[7:0] ),
++	.wb_we_i( wb_is_we_i ), 
++    .wb_stb_i( wb_is_stb_i ), 
++    .wb_cyc_i( wb_is_cyc_i ), 
++    .wb_ack_o( wb_is_ack_o )
++);
++
++minsoc_wb_32_8_bridge minsoc_wb_32_8_i2c_bridge(
++    .wb_32_sel_i(wb_is_sel_i),
++
++    .wb_32_dat_i(wb_is_dat_i), 
++    .wb_32_dat_o(wb_is_dat_o), 
++    .wb_32_adr_i(wb_is_adr_i),
++
++    .wb_8_dat_i(wb_i2c_dat_i), 
++    .wb_8_dat_o(wb_i2c_dat_o), 
++    .wb_8_adr_i(wb_i2c_adr_i)
++);
++
++assign pic_ints[`APP_INT_I2C] = i2c_irq;
++
++
+ //
+ // Instantiation of the Traffic COP
+ //
+@@ -791,11 +894,11 @@
+ 	 `APP_ADDR_DEC_W,
+ 	 `APP_ADDR_SPI,
+ 	 `APP_ADDR_ETH,
+-	 `APP_ADDR_AUDIO,
++	 `APP_ADDR_I2C,
+ 	 `APP_ADDR_UART,
+	 `APP_ADDR_PS2,
+	 `APP_ADDR_RES1,
+@@ -935,15 +1038,15 @@
+ 	.t3_wb_err_i	( wb_es_err_o ),
+ 
+ 	// WISHBONE Target 4
+-	.t4_wb_cyc_o	( ),
+-	.t4_wb_stb_o	( ),
+-	.t4_wb_adr_o	( ),
+-	.t4_wb_sel_o	( ),
+-	.t4_wb_we_o	( ),
+-	.t4_wb_dat_o	( ),
+-	.t4_wb_dat_i	( 32'h0000_0000 ),
+-	.t4_wb_ack_i	( 1'b0 ),
+-	.t4_wb_err_i	( 1'b1 ),
++	.t4_wb_cyc_o	( wb_is_cyc_i ),
++	.t4_wb_stb_o	( wb_is_stb_i ),
++	.t4_wb_adr_o	( wb_is_adr_i ),
++	.t4_wb_sel_o	( wb_is_sel_i ),
++	.t4_wb_we_o	( wb_is_we_i  ),
++	.t4_wb_dat_o	( wb_is_dat_i ),
++	.t4_wb_dat_i	( wb_is_dat_o ),
++	.t4_wb_ack_i	( wb_is_ack_o ),
++	.t4_wb_err_i	( wb_is_err_o ),
+ 	
+ 	// WISHBONE Target 5
+ 	.t5_wb_cyc_o	( wb_us_cyc_i ),

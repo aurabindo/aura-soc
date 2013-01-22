@@ -1,0 +1,8 @@
+Storage Target: SPI Flash Single FPGA
+128K
+FF
+uart_xilinx
+/home/jay/openrisc/minsoc/syn/
+
+MCS
+No

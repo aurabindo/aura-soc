@@ -1,0 +1,17 @@
+PROMGEN: Xilinx Prom Generator O.61xd
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+promgen -w -c -s 16384 -spi -p mcs -o uart.mcs -data_file up 0000 uart.bin 
+
+PROM uart.prm map: Fri Jan 18 14:01:30 2013
+
+Calculating PROM checksum with fill value ff
+
+Format        Mcs86 (32-bit)
+Size          16384K
+PROM start    0000:0000
+PROM end      00ff:ffff
+PROM checksum fee4857d
+
+        Addr1        Addr2                     Date File(s)
+    0000:0000    0000:2594     Jan 17 23:39:19 2013 uart.bin
