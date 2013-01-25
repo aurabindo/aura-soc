@@ -78,7 +78,7 @@
 //
 // Define division
 //
-`define CLOCK_DIVISOR 5		//in case of GENERIC_CLOCK_DIVISION the real value will be rounded 
+`define CLOCK_DIVISOR 4		//in case of GENERIC_CLOCK_DIVISION the real value will be rounded 
                             //down to an even value in FPGA case, check minsoc_clock_manager 
                             //for allowed divisors.
 				            //DO NOT USE CLOCK_DIVISOR = 1 COMMENT THE CLOCK DIVISION SELECTION 

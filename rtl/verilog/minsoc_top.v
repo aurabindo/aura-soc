@@ -58,7 +58,7 @@ output [1:0] spi_flash_ss;
    output    spi_chip_select;
 //   output    clock_out;
    output    ram_chip_select;
-   output wire [4:0] led_out;
+   output reg [4:0] led_out;
    
    assign uart_chip_select = wb_us_cyc_i;
  
@@ -68,33 +68,21 @@ output [1:0] spi_flash_ss;
    
    assign ram_chip_select = wb_ss_cyc_i;
 
-  reg [23:0] counter = 24'b0;
+   reg [23:0] 	    counter = 24'b0;
+   wire 	    temp_clk;
    
-   assign led_out = counter[23:16];
-   
-   
-   
+
+
 //   always @(posedge clk_int)   
-   always @(posedge wb_clk or posedge wb_rst)
+   always @(posedge wb_clk)
      begin
-        if(wb_rst)
-	  begin
-	     counter <= 0;
-	     //led <= 8'b1;
-	     //seven_seg <= 8'b1;
-	  end
-	
-	else
-	  begin
-	     counter <= counter +1;
-	    // seven_seg <= seven_seg + 1;
-	     
-	  end
-	
-	
+	  led_out <= wb_rst ? 5'h1f : 5'h1;
      end
 
-	
+
+
+   
+   
 `endif //  `ifdef TEST_LOCAL
    
    
