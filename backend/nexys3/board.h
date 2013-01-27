@@ -9,12 +9,12 @@
 #define DC_SIZE         8192
 
 
-#define IN_CLK  	25000000
+#define IN_CLK  	20000000
 
 
 #define STACK_SIZE	0x01000
 
-#define UART_BAUD_RATE 	115200
+#define UART_BAUD_RATE 	19200
 
 #define UART_BASE  	0x90000000
 #define UART_IRQ        2

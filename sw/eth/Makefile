@@ -3,6 +3,7 @@ include $(BACKEND_DIR)/gcc-opt.mk
 
 #USER INPUT
 SRCS = eth.c
+OR32_BINARY = eth.bin
 OR32_TARGET = eth.hex
 TARGET = 
 TARGETLIB = 
@@ -64,6 +65,7 @@ endif
 
 #MAKEFILE RULES
 all: $(TARGET) $(OR32_TARGET)
+	python bin2init.py $(OR32_BINARY)
 
 depend: $(DEPS)
 
@@ -120,6 +122,6 @@ $(EXECUTABLE): $(OBJS) ../support/except.o ../support/reset.o $(SUPPORT) $(DRIVE
 	$(CC) $(CFLAGS) $(GCC_LIB_OPTS) -T $(LINKER_SCRIPT) $^ -o $@
 
 clean:
-	rm -f *.o *~ $(TARGET) $(STATICLIB) $(DYNAMICLIB) $(SONAME) $(OR32_TARGET) $(BINARY) $(EXECUTABLE)
+	rm -f *.o *~ $(TARGET) $(STATICLIB) $(DYNAMICLIB) $(SONAME) $(OR32_TARGET) $(BINARY) $(EXECUTABLE) *.init
 
 #EOF

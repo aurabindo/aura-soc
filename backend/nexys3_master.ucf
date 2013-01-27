@@ -50,8 +50,8 @@ Net "clk" LOC=V10 | IOSTANDARD=LVCMOS33;
 #Net "FlashCS" LOC = L17 | IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L46P_FCS_B_M1DQ2, Sch name = P30-CE
 #Net "FlashRp" LOC = T4  | IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L63P, Sch name = P30-RST
 
-Net "spi_flash_ss" LOC = V3  | IOSTANDARD = LVCMOS33; #Bank = MISC, pin name = IO_L65N_CSO_B_2, Sch name = CS
-Net "spi_flash_sclk"  LOC = R15 | IOSTANDARD = LVCMOS33; #Bank = MISC, pin name = IO_L1P_CCLK_2, Sch name = SCK
+#Net "spi_flash_ss" LOC = V3  | IOSTANDARD = LVCMOS33; #Bank = MISC, pin name = IO_L65N_CSO_B_2, Sch name = CS
+#Net "spi_flash_sclk"  LOC = R15 | IOSTANDARD = LVCMOS33; #Bank = MISC, pin name = IO_L1P_CCLK_2, Sch name = SCK
 
 #Net "MemAdr<1>" LOC = K18  |  IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L45N_A0_M1LDQSN, Sch name = P30-A0
 #Net "MemAdr<2>" LOC = K17  |  IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L45P_A1_M1LDQS, Sch name = P30-A1
@@ -80,8 +80,8 @@ Net "spi_flash_sclk"  LOC = R15 | IOSTANDARD = LVCMOS33; #Bank = MISC, pin name 
 #Net "MemAdr<25>" LOC = F16  |  IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L1N_A24_VREF, Sch name = P30-A24
 #Net "MemAdr<26>" LOC = F15  |  IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L1P_A25, Sch name = P30-A25
 
-Net "spi_flash_mosi" LOC = T13 |  IOSTANDARD = LVCMOS33; #Dual/Quad SPI Flash DB<0>, Bank = MISC, pin name = IO_L3N_MOSI_CSI_B_MISO0_2, Sch name = SDI
-Net "spi_flash_miso" LOC = R13 |  IOSTANDARD = LVCMOS33; #Ram or Numonyx Paralell Flash DB<0>, or Dual/Quad SPI Flash DB<1>, Bank = MISC, pin name = IO_L3P_D0_DIN_MISO_MISO1_2, Sch name = P30-DQ0
+#Net "spi_flash_mosi" LOC = T13 |  IOSTANDARD = LVCMOS33; #Dual/Quad SPI Flash DB<0>, Bank = MISC, pin name = IO_L3N_MOSI_CSI_B_MISO0_2, Sch name = SDI
+#Net "spi_flash_miso" LOC = R13 |  IOSTANDARD = LVCMOS33; #Ram or Numonyx Paralell Flash DB<0>, or Dual/Quad SPI Flash DB<1>, Bank = MISC, pin name = IO_L3P_D0_DIN_MISO_MISO1_2, Sch name = P30-DQ0
 #Net "MemDB<1>" LOC = T14 |  IOSTANDARD = LVCMOS33; #Ram or Numonyx Paralell Flash DB<1>, or Quad SPI Flash DB<2>, Bank = MISC, pin name = IO_L12P_D1_MISO2_2, Sch name = P30-DQ1
 #Net "MemDB<2>" LOC = V14 |  IOSTANDARD = LVCMOS33; #Ram or Numonyx Paralell Flash DB<2>, or Quad SPI Flash DB<3>, Bank = MISC, pin name = IO_L12N_D2_MISO3_2, Sch name = P30-DQ2
 #Net "MemDB<3>" LOC = U5  |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_49P_D3, Sch name = P30-DQ3
@@ -153,14 +153,14 @@ Net "uart_stx" LOC = N18 | IOSTANDARD=LVCMOS33; #Bank = 1, pin name = IO_L48N_M1
 #Net "an<3>" LOC = P17 | IOSTANDARD = LVCMOS33; #Bank = 1, pin name = IO_L49P_M1DQ10, Sch name = AN3
 
 ## Leds
-Net "uart_chip_select" LOC = U16 | IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L2P_CMPCLK, Sch name = LD0
-Net "spi_chip_select" LOC = V16 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L2N_CMPMOSI, Sch name = LD1
-Net "ram_chip_select" LOC = U15 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L5P, Sch name = LD2
-Net "led_out<0>" LOC = V15 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L5N, Sch name = LD3
-Net "led_out<1>" LOC = M11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L15P, Sch name = LD4
-Net "led_out<2>" LOC = N11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L15N, Sch name = LD5
-Net "led_out<3>" LOC = R11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L16P, Sch name = LD6
-Net "led_out<4>" LOC = T11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L16N_VREF, Sch name = LD7
+#Net "uart_chip_select" LOC = U16 | IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L2P_CMPCLK, Sch name = LD0
+#Net "spi_chip_select" LOC = V16 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L2N_CMPMOSI, Sch name = LD1
+#Net "ram_chip_select" LOC = U15 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L5P, Sch name = LD2
+#Net "led_out<0>" LOC = V15 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L5N, Sch name = LD3
+#Net "led_out<1>" LOC = M11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L15P, Sch name = LD4
+#Net "led_out<2>" LOC = N11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L15N, Sch name = LD5
+#Net "led_out<3>" LOC = R11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L16P, Sch name = LD6
+#Net "led_out<4>" LOC = T11 |  IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L16N_VREF, Sch name = LD7
 
 ## Switches
 #Net "reset" LOC = T10 | IOSTANDARD = LVCMOS33; #Bank = 2, pin name = IO_L29N_GCLK2, Sch name = SW0

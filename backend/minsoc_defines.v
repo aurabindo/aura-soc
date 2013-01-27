@@ -94,9 +94,13 @@
 // Start-up circuit (only necessary later to load firmware automatically from SPI memory)
 //
 //`define START_UP
-`define TEST_LOCAL //for testing if stuff works without having a debug cable
-`define BLOCK_RAM_INIT
 
+//
+//For preloading ram with some compiled application code. Define any one at a time: uart or eth
+//
+`define BLOCK_RAM_INIT_UART
+//`define BLOCK_RAM_INIT_ETH
+  
 //
 // Connected modules
 //
