@@ -109,6 +109,13 @@ make -C ../../sw/drivers
 make -C ../../sw/uart
 make -C ../../sw/eth
 echo "done."
+echo "Copying files for pre loading RAM"
+cp ../../utils/contributions/initialized_onchip_ram/bin2init.py ../../sw/uart/
+cp ../../utils/contributions/initialized_onchip_ram/bin2init.py ../../sw/eth/
+
+cp ../../sw/utils/bin2hex ../../sw/uart/
+cp ../../sw/utils/bin2hex ../../sw/eth/
+
 echo ""
 echo ""
 
