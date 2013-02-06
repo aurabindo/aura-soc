@@ -25,8 +25,12 @@ module minsoc_top (
 	, eth_col, eth_crs, eth_trste, eth_tx_clk,
 	eth_tx_en, eth_tx_er, eth_txd, eth_rx_clk,
 	eth_rx_dv, eth_rx_er, eth_rxd, eth_fds_mdint,
-	eth_mdc, eth_mdio
+	eth_mdc, eth_mdio,
 `endif
+
+//I2C ports
+		   i2c_sda, i2c_scl
+		   
 );
 
 //
@@ -79,6 +83,11 @@ inout			eth_mdio;
 output			eth_mdc;
 `endif
 
+
+   inout 		i2c_scl;
+   inout 		i2c_sda;
+
+   
 //
 // JTAG
 //
@@ -250,6 +259,37 @@ wire			wb_es_err_o;
 wire			eth_mdo;
 wire			eth_mdoe;
 
+// I2C core external i/f wires
+//
+wire i2c_scl, i2c_scl_o, i2c_scl_oe;
+wire i2c_sda, i2c_sda_o, i2c_sda_oe;
+
+
+//
+// I2C slave external i/f wires
+//
+
+
+wire	[31:0]		wb_is_dat_i;
+wire 	[31:0]		wb_is_dat_o;
+wire	[31:0]		wb_is_adr_i;
+wire	[3:0]		wb_is_sel_i;
+wire			wb_is_we_i;
+wire			wb_is_cyc_i;
+wire			wb_is_stb_i;
+wire			wb_is_ack_o;
+wire			wb_is_err_o;
+   
+   
+
+//
+// I2C core extra wires
+//
+wire 	[7:0]		wb_i2c_dat_i;
+wire 	[7:0]		wb_i2c_dat_o;
+wire    [31:0] 		wb_i2c_adr_i;
+wire 		i2c_irq; 
+   
 //
 // UART16550 core slave i/f wires
 //
@@ -313,7 +353,8 @@ clk_adjust (
 assign wb_us_err_o = 1'b0;
 assign wb_fs_err_o = 1'b0;
 assign wb_sp_err_o = 1'b0;
-
+assign wb_is_err_o = 1'b0;
+   
 //
 // Unused interrupts
 //
@@ -330,7 +371,15 @@ assign eth_mdio = eth_mdoe ? eth_mdo : 1'bz;
 assign eth_trste = `ETH_RESET;
 `endif
 
+//
+// I2C Tri state
+//
 
+assign i2c_scl = i2c_scl_oe ? 1'bz : i2c_scl_o;
+assign i2c_sda = i2c_sda_oe ? 1'bz : i2c_sda_o;
+
+   
+   
 //
 // RISC Instruction address for Flash
 //
@@ -785,6 +834,55 @@ assign pic_ints[`APP_INT_ETH] = 1'b0;
 `endif
 
 //
+// Instantiation of I2C
+//
+i2c_master_top i2c_top(
+	.i2c_active(i2c_active), 
+	
+    .arst_i( rstn ), 
+
+    .wb_inta_o( i2c_irq ),
+
+
+    .scl_pad_o( i2c_scl_o ), 
+    .scl_padoen_o( i2c_scl_oe ), 
+
+
+
+    .sda_padoen_o( i2c_sda_oe ),
+
+    //WISHBONE COMMON
+    .wb_clk_i( wb_clk ), 
+    .wb_rst_i( wb_rst ), 
+
+    //WISHBONE slave
+    .wb_adr_i( wb_i2c_adr_i[2:0] ), 
+    .wb_dat_i( wb_i2c_dat_i[7:0] ), 
+    .wb_dat_o( wb_i2c_dat_o[7:0] ),
+	.wb_we_i( wb_is_we_i ), 
+    .wb_stb_i( wb_is_stb_i ), 
+    .wb_cyc_i( wb_is_cyc_i ), 
+    .wb_ack_o( wb_is_ack_o )
+);
+
+minsoc_wb_32_8_bridge minsoc_wb_32_8_i2c_bridge(
+    .wb_32_sel_i(wb_is_sel_i),
+
+    .wb_32_dat_i(wb_is_dat_i), 
+    .wb_32_dat_o(wb_is_dat_o), 
+    .wb_32_adr_i(wb_is_adr_i),
+
+    .wb_8_dat_i(wb_i2c_dat_i), 
+    .wb_8_dat_o(wb_i2c_dat_o), 
+    .wb_8_adr_i(wb_i2c_adr_i)
+);
+
+assign pic_ints[`APP_INT_I2C] = i2c_irq;
+
+
+
+   
+//
 // Instantiation of the Traffic COP
 //
 minsoc_tc_top #(`APP_ADDR_DEC_W,
@@ -796,7 +894,7 @@ minsoc_tc_top #(`APP_ADDR_DEC_W,
 	 `APP_ADDR_DEC_W,
 	 `APP_ADDR_SPI,
 	 `APP_ADDR_ETH,
-	 `APP_ADDR_AUDIO,
+	 `APP_ADDR_I2C,
 	 `APP_ADDR_UART,
 	 `APP_ADDR_PS2,
 	 `APP_ADDR_RES1,
@@ -940,15 +1038,15 @@ minsoc_tc_top #(`APP_ADDR_DEC_W,
 	.t3_wb_err_i	( wb_es_err_o ),
 
 	// WISHBONE Target 4
-	.t4_wb_cyc_o	( ),
-	.t4_wb_stb_o	( ),
-	.t4_wb_adr_o	( ),
-	.t4_wb_sel_o	( ),
-	.t4_wb_we_o	( ),
-	.t4_wb_dat_o	( ),
-	.t4_wb_dat_i	( 32'h0000_0000 ),
-	.t4_wb_ack_i	( 1'b0 ),
-	.t4_wb_err_i	( 1'b1 ),
+	.t4_wb_cyc_o	( wb_is_cyc_i ),
+	.t4_wb_stb_o	( wb_is_stb_i ),
+	.t4_wb_adr_o	( wb_is_adr_i ),
+	.t4_wb_sel_o	( wb_is_sel_i ),
+	.t4_wb_we_o	( wb_is_we_i  ),
+	.t4_wb_dat_o	( wb_is_dat_i ),
+	.t4_wb_dat_i	( wb_is_dat_o ),
+	.t4_wb_ack_i	( wb_is_ack_o ),
+	.t4_wb_err_i	( wb_is_err_o ),
 	
 	// WISHBONE Target 5
 	.t5_wb_cyc_o	( wb_us_cyc_i ),
